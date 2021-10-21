@@ -6,6 +6,12 @@ const morgan = require("morgan")
 
 const app = express()
 
+
+/* IMPORT ROUTERS */
+const appointmentRouter = require("./resources/appointment/router");
+const doctorRouter = require("./resources/doctor/router");
+const patientRouter = require("./resources/patient/router");
+
 /* SETUP MIDDLEWARE */
 
 app.disable("x-powered-by")
@@ -16,6 +22,11 @@ app.use(express.urlencoded({ extended: true }))
 app.use(morgan("dev"))
 
 /* SETUP ROUTES */
+
+app.use("/appointment", appointmentRouter);
+app.use("/doctor", doctorRouter);
+app.use("/patient", patientRouter);
+
 
 app.get("*", (req, res) => {
   res.json({ ok: true })
